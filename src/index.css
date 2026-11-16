@@ -1,0 +1,43 @@
+@import "tailwindcss";
+
+body {
+    font-family: "Inter", sans-serif;
+    background-color: #f9fafb;
+    color: #1d2c4d;
+    margin: 0;
+    padding: 0;
+}
+
+.volume-slider {
+    -webkit-appearance: none;
+    appearance: none;
+    background: transparent;
+    cursor: pointer;
+}
+
+/* Trilha base */
+.volume-slider::-webkit-slider-runnable-track {
+    height: 6px;
+    border-radius: 9999px;
+    background: transparent;
+}
+
+.volume-slider::-moz-range-track {
+    height: 6px;
+    border-radius: 9999px;
+    background: transparent;
+}
+
+/* Remove completamentamente a bolinha */
+.volume-slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 0;
+    height: 0;
+}
+
+.volume-slider::-moz-range-thumb {
+    width: 0;
+    height: 0;
+    border: none;
+}
