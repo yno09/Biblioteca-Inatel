@@ -1,43 +1,52 @@
 @import "tailwindcss";
 
-body {
-    font-family: "Inter", sans-serif;
-    background-color: #f9fafb;
-    color: #1d2c4d;
-    margin: 0;
-    padding: 0;
+@theme {
+  --color-inatel: #0b4f9c;
+  --color-inatel-claro: #1e6fd0;
+}
+
+@layer base {
+  body {
+    @apply bg-slate-900 text-slate-100;
+  }
 }
 
 .volume-slider {
-    -webkit-appearance: none;
-    appearance: none;
-    background: transparent;
-    cursor: pointer;
+  -webkit-appearance: none;
+  appearance: none;
+  background: transparent;
+  cursor: pointer;
 }
 
 /* Trilha base */
 .volume-slider::-webkit-slider-runnable-track {
-    height: 6px;
-    border-radius: 9999px;
-    background: transparent;
+  height: 6px;
+  border-radius: 9999px;
+  background: transparent;
 }
 
 .volume-slider::-moz-range-track {
-    height: 6px;
-    border-radius: 9999px;
-    background: transparent;
+  height: 6px;
+  border-radius: 9999px;
+  background: transparent;
 }
 
-/* Remove completamentamente a bolinha */
+/* Remove completamente a bolinha */
 .volume-slider::-webkit-slider-thumb {
-    -webkit-appearance: none;
-    appearance: none;
-    width: 0;
-    height: 0;
+  -webkit-appearance: none;
+  appearance: none;
+  width: 0;
+  height: 0;
 }
 
 .volume-slider::-moz-range-thumb {
-    width: 0;
-    height: 0;
-    border: none;
+  width: 0;
+  height: 0;
+  border: none;
+}
+
+.search-button {
+    background-color: rgb(44, 62, 90);
+    padding: 0.5rem 1rem;
+    border-radius: 0.375rem;
 }
