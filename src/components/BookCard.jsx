@@ -2,9 +2,15 @@ import { Link } from "react-router-dom";
 import { BookOpenIcon } from "lucide-react";
 
 const BookCard = ({ book }) => {
+<<<<<<< HEAD
+  // quantidade = exemplares disponíveis na biblioteca
+  const quantidade = book.quantidade ?? 0;
+  const disponivel = quantidade > 0;
+=======
   // O Google Books não informa disponibilidade na biblioteca.
   // Se você tiver essa informação, envie book.disponivel = false.
   const disponivel = book.disponivel !== false;
+>>>>>>> 61b91a9b6d0e41a87e11340e349280c7f8da8ff5
 
   return (
     <article className="flex flex-col overflow-hidden rounded-lg border border-slate-700 bg-slate-800">
@@ -34,6 +40,13 @@ const BookCard = ({ book }) => {
               <p className="mt-1 line-clamp-1 text-xs text-slate-400">
                 {book.editora ?? book.autores?.join(", ") ?? "Editora não informada"}
               </p>
+<<<<<<< HEAD
+              <p className="mt-1 text-xs font-medium text-slate-300">
+                {quantidade}{" "}
+                {quantidade === 1 ? "exemplar disponível" : "exemplares disponíveis"}
+              </p>
+=======
+>>>>>>> 61b91a9b6d0e41a87e11340e349280c7f8da8ff5
             </div>
 
             <Link

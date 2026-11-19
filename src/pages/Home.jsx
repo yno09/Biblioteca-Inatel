@@ -11,6 +11,10 @@ const ORDENACOES = [
   { id: "editora-az", label: "Editora (A–Z)" },
   { id: "editora-za", label: "Editora (Z–A)" },
   { id: "disponiveis", label: "Disponíveis primeiro" },
+<<<<<<< HEAD
+  { id: "mais-exemplares", label: "Mais exemplares disponíveis" },
+=======
+>>>>>>> 61b91a9b6d0e41a87e11340e349280c7f8da8ff5
 ];
 
 // Compara textos em português, ignorando acentos e maiúsculas
@@ -36,7 +40,17 @@ const ordenar = (livros, ordem) => {
     case "disponiveis":
       return lista.sort(
         (a, b) =>
+<<<<<<< HEAD
+          Number((b.quantidade ?? 0) > 0) - Number((a.quantidade ?? 0) > 0) ||
+          comparar(a.titulo, b.titulo)
+      );
+    case "mais-exemplares":
+      return lista.sort(
+        (a, b) =>
+          (b.quantidade ?? 0) - (a.quantidade ?? 0) ||
+=======
           Number(b.disponivel !== false) - Number(a.disponivel !== false) ||
+>>>>>>> 61b91a9b6d0e41a87e11340e349280c7f8da8ff5
           comparar(a.titulo, b.titulo)
       );
     default:
@@ -192,4 +206,8 @@ const Home = () => {
   );
 };
 
+<<<<<<< HEAD
 export default Home;
+=======
+export default Home;
+>>>>>>> 61b91a9b6d0e41a87e11340e349280c7f8da8ff5
