@@ -6,7 +6,6 @@ import { fetchBooksById } from "../services/api";
 const BookDetails = () => {
   const { id } = useParams(); // pega o :id da URL (/livro/:id)
   const [estado, setEstado] = useState({ id: null, livro: null, erro: null });
-  const [reservado, setReservado] = useState(false);
 
   useEffect(() => {
     let cancelado = false;
@@ -27,19 +26,14 @@ const BookDetails = () => {
   const carregando = estado.id !== id;
   const { livro, erro } = estado;
 
-  const solicitarReserva = () => {
-    // Aqui entra a lógica de reserva (por enquanto só marca na tela)
-    setReservado(true);
-  };
-
   if (carregando) {
     return <p className="text-slate-400 text-center py-20">Carregando...</p>;
   }
 
-  if (erro) {
+  if (erro || !livro) {
     return (
       <div className="text-center py-20">
-        <p className="text-red-400">{erro}</p>
+        <p className="text-red-400">{erro ?? "Livro não encontrado."}</p>
         <Link to="/" className="mt-4 inline-block text-inatel-claro hover:underline">
           Voltar ao catálogo
         </Link>
@@ -48,7 +42,7 @@ const BookDetails = () => {
   }
 
   const dados = [
-    ["Autor", livro.autores.join(", ")],
+    ["Autor", livro.autores?.join(", ")],
     ["Editora", livro.editora],
     ["Ano", livro.ano],
     [
@@ -96,14 +90,12 @@ const BookDetails = () => {
           </div>
         </div>
 
-        <button
-          type="button"
-          onClick={solicitarReserva}
-          disabled={reservado}
-          className="border-t border-slate-700 p-3 text-sm font-medium text-inatel-claro hover:underline disabled:text-slate-500 disabled:no-underline"
+        <Link
+          to={`/reservar/${id}`}
+          className="border-t border-slate-700 p-3 text-center text-sm font-medium text-inatel-claro hover:underline"
         >
-          {reservado ? "Reserva solicitada" : "Solicitar Reserva"}
-        </button>
+          Solicitar Reserva
+        </Link>
       </article>
     </main>
   );
