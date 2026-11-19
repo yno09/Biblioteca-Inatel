@@ -17,7 +17,6 @@ const normalizar = (texto) =>
     .replace(/[̀-ͯ]/g, "")
     .toLowerCase();
 
-<<<<<<< HEAD
 // Ajusta o caminho da capa para funcionar tanto no computador quanto no
 // GitHub Pages (que publica o site em uma subpasta). Em livros.js use
 // capa: "/capas/arquivo.jpg" e este código cuida do resto.
@@ -29,11 +28,6 @@ const prepararCapa = (livro) =>
 // Mantém o formato assíncrono (Promise), igual ao de uma API de verdade.
 // Assim, se um dia você trocar por um backend, só este arquivo muda.
 export const fetchBooks = async () => LIVROS.map(prepararCapa);
-=======
-// Mantém o formato assíncrono (Promise), igual ao de uma API de verdade.
-// Assim, se um dia você trocar por um backend, só este arquivo muda.
-export const fetchBooks = async () => LIVROS;
->>>>>>> 61b91a9b6d0e41a87e11340e349280c7f8da8ff5
 
 export const searchBooks = async (query) => {
   const termo = normalizar(query?.trim() ?? "");
@@ -41,7 +35,6 @@ export const searchBooks = async (query) => {
 
   return LIVROS.filter((livro) =>
     normalizar([livro.titulo, livro.editora, ...livro.autores].join(" ")).includes(termo)
-<<<<<<< HEAD
   ).map(prepararCapa);
 };
 
@@ -49,21 +42,9 @@ export const fetchBooksByGenre = async (genreId) =>
   (genreId === 0 ? LIVROS : LIVROS.filter((livro) => livro.genero === genreId)).map(
     prepararCapa
   );
-=======
-  );
-};
-
-export const fetchBooksByGenre = async (genreId) =>
-  genreId === 0 ? LIVROS : LIVROS.filter((livro) => livro.genero === genreId);
->>>>>>> 61b91a9b6d0e41a87e11340e349280c7f8da8ff5
 
 export const fetchBooksById = async (id) => {
   const livro = LIVROS.find((l) => l.id === id);
   if (!livro) throw new Error("Livro não encontrado.");
-<<<<<<< HEAD
   return prepararCapa(livro);
 };
-=======
-  return livro;
-};
->>>>>>> 61b91a9b6d0e41a87e11340e349280c7f8da8ff5

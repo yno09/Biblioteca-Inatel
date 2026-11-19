@@ -1,4 +1,4 @@
-﻿import { Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { useBiblioteca } from "../context/BibliotecaContext";
 import { formatarData, formatarMoeda } from "../utils/datas";
 
