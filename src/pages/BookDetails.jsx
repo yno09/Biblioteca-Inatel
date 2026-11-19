@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import { BookOpenIcon } from "lucide-react";
@@ -102,3 +103,10 @@ const BookDetails = () => {
 };
 
 export default BookDetails;
+=======
+const BookDetails = () => {
+  return <div className="pt-20 px-4 text-slate-100">Detalhes</div>;
+};
+
+export default BookDetails;
+>>>>>>> 61b91a9b6d0e41a87e11340e349280c7f8da8ff5
