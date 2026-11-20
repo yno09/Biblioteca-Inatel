@@ -5,7 +5,7 @@ import {
   PRAZO_DEVOLUCAO_DIAS,
   adicionarDias,
   calcularMulta,
-} from "../utils/datas";
+} from "../utils/Datas";
 
 const CHAVE = "biblioteca-inatel:registros";
 

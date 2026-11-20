@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import BookCard from "../components/BookCard";
+import BookCard from "../components/Bookcard";
 import { GENRES, searchBooks, fetchBooksByGenre } from "../services/api";
 
 const ORDENACOES = [

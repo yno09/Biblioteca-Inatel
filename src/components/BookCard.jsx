@@ -8,7 +8,7 @@ const BookCard = ({ book }) => {
 
   return (
     <article className="flex flex-col overflow-hidden rounded-lg border border-slate-700 bg-slate-800">
-      <div className="aspect-[3/4] bg-slate-700 flex items-center justify-center">
+      <div className="aspect-3/4 bg-slate-700 flex items-center justify-center">
         {book.capa ? (
           <img
             src={book.capa}

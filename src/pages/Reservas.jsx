@@ -1,6 +1,6 @@
 ﻿import { Link } from "react-router-dom";
 import { useBiblioteca } from "../context/BibliotecaContext";
-import { diasDeAtraso, formatarData } from "../utils/datas";
+import { diasDeAtraso, formatarData } from "../utils/Datas";
 
 const Reservas = () => {
   const { registros, retirarLivro } = useBiblioteca();

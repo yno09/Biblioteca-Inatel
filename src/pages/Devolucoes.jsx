@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import { useBiblioteca } from "../context/BibliotecaContext";
-import { formatarData, formatarMoeda } from "../utils/datas";
+import { formatarData, formatarMoeda } from "../utils/Datas";
 
 const Devolucoes = () => {
   const { registros } = useBiblioteca();

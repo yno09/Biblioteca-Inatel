@@ -6,7 +6,7 @@ import {
   diasDeAtraso,
   formatarData,
   formatarMoeda,
-} from "../utils/datas";
+} from "../utils/Datas";
 
 const Emprestimos = () => {
   const { registros, devolverLivro, simularAtraso } = useBiblioteca();
