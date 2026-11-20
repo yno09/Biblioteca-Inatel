@@ -1,4 +1,4 @@
-name: Deploy para o GitHub Pages
+﻿name: Deploy para o GitHub Pages
 
 on:
   push:
@@ -23,7 +23,7 @@ jobs:
         with:
           node-version: 22
           cache: npm
-      - run: npm ci
+      - run: npm install
       - run: npm run build
       - uses: actions/upload-pages-artifact@v3
         with:
