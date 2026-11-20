@@ -27,13 +27,13 @@ const BookDetails = () => {
   const { livro, erro } = estado;
 
   if (carregando) {
-    return <p className="text-slate-400 text-center py-20">Carregando...</p>;
+    return <p className="text-texto-mudo text-center py-20">Carregando...</p>;
   }
 
   if (erro || !livro) {
     return (
       <div className="text-center py-20">
-        <p className="text-red-400">{erro ?? "Livro não encontrado."}</p>
+        <p className="text-red-700 dark:text-red-400">{erro ?? "Livro não encontrado."}</p>
         <Link to="/" className="mt-4 inline-block text-inatel-claro hover:underline">
           Voltar ao catálogo
         </Link>
@@ -59,9 +59,9 @@ const BookDetails = () => {
         ← Voltar ao catálogo
       </Link>
 
-      <article className="mt-4 flex flex-col overflow-hidden rounded-lg border border-slate-700 bg-slate-800">
-        <div className="flex justify-center bg-slate-900/40 p-4">
-          <div className="flex aspect-3/4 w-44 items-center justify-center overflow-hidden rounded-md bg-slate-700">
+      <article className="mt-4 flex flex-col overflow-hidden rounded-lg border border-borda bg-superficie">
+        <div className="flex justify-center bg-fundo/40 p-4">
+          <div className="flex aspect-3/4 w-44 items-center justify-center overflow-hidden rounded-md bg-superficie-2">
             {livro.capa ? (
               <img
                 src={livro.capa}
@@ -69,7 +69,7 @@ const BookDetails = () => {
                 className="h-full w-full object-cover"  
               />
             ) : (
-              <div className="flex flex-col items-center gap-2 text-slate-400">
+              <div className="flex flex-col items-center gap-2 text-texto-mudo">
                 <BookOpenIcon size={40} />
                 <span className="text-xs">Sem capa</span>
               </div>
@@ -77,13 +77,13 @@ const BookDetails = () => {
           </div>
         </div>
 
-        <div className="border-t border-slate-700 p-4">
-          <h2 className="text-lg font-bold text-slate-100">{livro.titulo}</h2>
+        <div className="border-t border-borda p-4">
+          <h2 className="text-lg font-bold text-texto">{livro.titulo}</h2>
 
-          <div className="mt-2 space-y-1 text-sm text-slate-400">
+          <div className="mt-2 space-y-1 text-sm text-texto-mudo">
             {dados.map(([rotulo, valor]) => (
               <p key={rotulo}>
-                <span className="font-semibold text-slate-300">{rotulo}:</span>{" "}
+                <span className="font-semibold text-texto-suave">{rotulo}:</span>{" "}
                 {valor}
               </p>
             ))}
@@ -92,7 +92,7 @@ const BookDetails = () => {
 
         <Link
           to={`/reservar/${id}`}
-          className="border-t border-slate-700 p-3 text-center text-sm font-medium text-inatel-claro hover:underline"
+          className="border-t border-borda p-3 text-center text-sm font-medium text-inatel-claro hover:underline"
         >
           Solicitar Reserva
         </Link>

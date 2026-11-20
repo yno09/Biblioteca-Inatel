@@ -76,7 +76,7 @@ export const BibliotecaProvider = ({ children }) => {
 
   // Só para testar a multa: adianta o prazo de devolução em 3 dias
   const simularAtraso = (id) =>
-    atualizar(id, (r) => ({ prazoDevolucao: adicionarDias(r.prazoDevolucao, -3) }));
+    atualizar(id, (r) => ({ prazoDevolucao: adicionarDias(r.prazoDevolucao, -1) }));
 
   return (
     <BibliotecaContext.Provider

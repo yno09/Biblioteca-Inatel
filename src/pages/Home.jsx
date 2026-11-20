@@ -97,7 +97,7 @@ const Home = () => {
 
   return (
     <main className="max-w-6xl mx-auto px-4 py-6 pb-20">
-      <h2 className="text-xl font-bold text-slate-100">
+      <h2 className="text-xl font-bold text-texto">
         Escolha o seu próximo livro
       </h2>
 
@@ -107,7 +107,7 @@ const Home = () => {
           value={texto}
           onChange={(e) => setTexto(e.target.value)}
           placeholder="Buscar por autor, título ou editora..."
-          className="flex-1 bg-slate-800 border border-slate-700 rounded-xl px-4 py-3 text-sm text-slate-100 placeholder:text-slate-400 focus:outline-none focus:border-inatel-claro"
+          className="flex-1 bg-superficie border border-borda rounded-xl px-4 py-3 text-sm text-texto placeholder:text-texto-mudo focus:outline-none focus:border-inatel-claro"
         />
         <button
           type="submit"
@@ -129,7 +129,7 @@ const Home = () => {
               className={`rounded-full px-5 py-2 text-xs transition-colors ${
                 ativo
                   ? "bg-inatel text-white"
-                  : "bg-slate-800 text-slate-300 hover:bg-slate-700"
+                  : "bg-superficie text-texto-suave hover:bg-superficie-2"
               }`}
             >
               {g.name}
@@ -139,14 +139,14 @@ const Home = () => {
       </div>
 
       <div className="mt-4 flex flex-wrap items-center gap-3">
-        <label htmlFor="ordenar" className="text-sm text-slate-300">
+        <label htmlFor="ordenar" className="text-sm text-texto-suave">
           Ordenar por
         </label>
         <select
           id="ordenar"
           value={ordem}
           onChange={(e) => setOrdem(e.target.value)}
-          className="bg-slate-800 border border-slate-700 rounded-xl px-3 py-2 text-sm text-slate-100 focus:outline-none focus:border-inatel-claro"
+          className="bg-superficie border border-borda rounded-xl px-3 py-2 text-sm text-texto focus:outline-none focus:border-inatel-claro"
         >
           {ORDENACOES.map((o) => (
             <option key={o.id} value={o.id}>
@@ -166,7 +166,7 @@ const Home = () => {
             className={`rounded-full px-4 py-2 text-xs transition-colors ${
               ordem === o.id
                 ? "bg-inatel text-white"
-                : "bg-slate-800 text-slate-300 hover:bg-slate-700"
+                : "bg-superficie text-texto-suave hover:bg-superficie-2"
             }`}
           >
             {o.label}
@@ -175,15 +175,15 @@ const Home = () => {
       </div>
 
       {carregando && (
-        <p className="text-slate-400 text-center py-20">Carregando livros...</p>
+        <p className="text-texto-mudo text-center py-20">Carregando livros...</p>
       )}
 
       {!carregando && resultado.erro && (
-        <p className="text-red-400 text-center py-20">{resultado.erro}</p>
+        <p className="text-red-700 dark:text-red-400 text-center py-20">{resultado.erro}</p>
       )}
 
       {!carregando && !resultado.erro && resultado.livros.length === 0 && (
-        <p className="text-slate-400 text-center py-20">
+        <p className="text-texto-mudo text-center py-20">
           Nenhum livro encontrado.
         </p>
       )}

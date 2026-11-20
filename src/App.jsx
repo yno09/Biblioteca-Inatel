@@ -1,7 +1,7 @@
 import { Routes, Route } from "react-router-dom";
 import { BibliotecaProvider } from "./context/BibliotecaProvider";
 import Header from "./components/Header";
-import Home from "./pages/Home";
+import Home from "./pages/home";
 import BookDetails from "./pages/BookDetails";
 import ConfirmarReserva from "./pages/ConfirmarReserva";
 import Reservas from "./pages/Reservas";

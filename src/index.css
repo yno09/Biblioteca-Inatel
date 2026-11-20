@@ -1,13 +1,53 @@
 @import "tailwindcss";
 
+/* O modo escuro é ligado pela classe "dark" no <html> (veja ThemeToggle.jsx) */
+@custom-variant dark (&:where(.dark, .dark *));
+
 @theme {
   --color-inatel: #0b4f9c;
   --color-inatel-claro: #1e6fd0;
 }
 
+/* Cores do tema. Para mudar o visual, edite só os valores abaixo. */
+:root {
+  color-scheme: light;
+  --fundo: #f1f5f9;
+  --superficie: #ffffff;
+  --superficie-2: #e2e8f0;
+  --superficie-3: #cbd5e1;
+  --borda: #cbd5e1;
+  --texto: #0f172a;
+  --texto-suave: #1e293b;
+  --texto-mudo: #475569;
+}
+
+.dark {
+  color-scheme: dark;
+  --fundo: #0f172a;
+  --superficie: #1e293b;
+  --superficie-2: #334155;
+  --superficie-3: #475569;
+  --borda: #334155;
+  --texto: #f1f5f9;
+  --texto-suave: #cbd5e1;
+  --texto-mudo: #94a3b8;
+}
+
+/* Gera as classes bg-fundo, bg-superficie, text-texto, border-borda etc. */
+@theme inline {
+  --color-fundo: var(--fundo);
+  --color-superficie: var(--superficie);
+  --color-superficie-2: var(--superficie-2);
+  --color-superficie-3: var(--superficie-3);
+  --color-borda: var(--borda);
+  --color-texto: var(--texto);
+  --color-texto-suave: var(--texto-suave);
+  --color-texto-mudo: var(--texto-mudo);
+}
+
 @layer base {
   body {
-    @apply bg-slate-900 text-slate-100;
+    @apply bg-fundo text-texto;
   }
 }
 

@@ -15,7 +15,7 @@ const CURSOS = [
 ];
 
 const campo =
-  "w-full bg-slate-900 border border-slate-700 rounded-lg px-4 py-3 text-sm text-slate-100 placeholder:text-slate-500 focus:outline-none focus:border-inatel-claro";
+  "w-full bg-fundo border border-borda rounded-lg px-4 py-3 text-sm text-texto placeholder:text-texto-mudo focus:outline-none focus:border-inatel-claro";
 
 const ConfirmarReserva = () => {
   const { id } = useParams();
@@ -67,17 +67,17 @@ const ConfirmarReserva = () => {
   if (reserva) {
     return (
       <main className="max-w-md mx-auto px-4 py-10">
-        <div className="rounded-xl border border-slate-700 bg-slate-800 p-6 text-center">
+        <div className="rounded-xl border border-borda bg-superficie p-6 text-center">
           <CheckCircleIcon size={48} className="mx-auto text-inatel-claro" />
-          <h2 className="mt-4 text-xl font-bold text-slate-100">
+          <h2 className="mt-4 text-xl font-bold text-texto">
             Reserva confirmada!
           </h2>
-          <p className="mt-2 text-sm text-slate-400">
+          <p className="mt-2 text-sm text-texto-mudo">
             {livro ? `"${livro.titulo}"` : "O livro"} foi reservado para{" "}
-            <span className="text-slate-200">{reserva.nome}</span> (
+            <span className="text-texto">{reserva.nome}</span> (
             {reserva.matricula}), do curso de {reserva.curso}.
           </p>
-          <p className="mt-2 text-sm text-slate-400">
+          <p className="mt-2 text-sm text-texto-mudo">
             Retire o livro até {formatarData(reserva.prazoRetirada)}.
           </p>
           <div className="mt-6 flex flex-wrap justify-center gap-3">
@@ -89,7 +89,7 @@ const ConfirmarReserva = () => {
             </Link>
             <Link
               to="/"
-              className="rounded-lg bg-slate-700 hover:bg-slate-600 px-5 py-3 text-sm font-semibold text-slate-100 transition-colors"
+              className="rounded-lg bg-superficie-2 hover:bg-superficie-3 px-5 py-3 text-sm font-semibold text-texto transition-colors"
             >
               Voltar ao catálogo
             </Link>
@@ -101,17 +101,17 @@ const ConfirmarReserva = () => {
 
   return (
     <main className="max-w-md mx-auto px-4 py-10">
-      <div className="rounded-xl border border-slate-700 bg-slate-800 p-6">
-        <h2 className="text-xl font-bold text-slate-100">Confirmar reserva</h2>
+      <div className="rounded-xl border border-borda bg-superficie p-6">
+        <h2 className="text-xl font-bold text-texto">Confirmar reserva</h2>
         {livro && (
-          <p className="mt-1 text-sm text-slate-400">
-            Livro: <span className="text-slate-200">{livro.titulo}</span>
+          <p className="mt-1 text-sm text-texto-mudo">
+            Livro: <span className="text-texto">{livro.titulo}</span>
           </p>
         )}
 
         <form onSubmit={handleSubmit} className="mt-6 flex flex-col gap-4">
           <div>
-            <label htmlFor="nome" className="mb-1 block text-sm text-slate-300">
+            <label htmlFor="nome" className="mb-1 block text-sm text-texto-suave">
               Nome
             </label>
             <input
@@ -128,7 +128,7 @@ const ConfirmarReserva = () => {
           <div>
             <label
               htmlFor="matricula"
-              className="mb-1 block text-sm text-slate-300"
+              className="mb-1 block text-sm text-texto-suave"
             >
               Matrícula
             </label>
@@ -144,7 +144,7 @@ const ConfirmarReserva = () => {
           </div>
 
           <div>
-            <label htmlFor="curso" className="mb-1 block text-sm text-slate-300">
+            <label htmlFor="curso" className="mb-1 block text-sm text-texto-suave">
               Curso
             </label>
             <select
@@ -165,7 +165,7 @@ const ConfirmarReserva = () => {
             </select>
           </div>
 
-          {erro && <p className="text-sm text-red-400">{erro}</p>}
+          {erro && <p className="text-sm text-red-700 dark:text-red-400">{erro}</p>}
 
           <button
             type="submit"

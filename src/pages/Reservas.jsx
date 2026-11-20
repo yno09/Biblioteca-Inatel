@@ -7,13 +7,13 @@ const Reservas = () => {
 
   return (
     <main className="max-w-3xl mx-auto px-4 py-6 pb-20">
-      <h2 className="text-xl font-bold text-slate-100">Histórico de reservas</h2>
-      <p className="mt-1 text-sm text-slate-400">
+      <h2 className="text-xl font-bold text-texto">Histórico de reservas</h2>
+      <p className="mt-1 text-sm text-texto-mudo">
         Você tem até 7 dias para retirar o livro reservado.
       </p>
 
       {registros.length === 0 ? (
-        <div className="py-20 text-center text-slate-400">
+        <div className="py-20 text-center text-texto-mudo">
           <p>Nenhuma reserva ainda.</p>
           <Link to="/" className="mt-3 inline-block text-inatel-claro hover:underline">
             Ir ao catálogo
@@ -28,29 +28,29 @@ const Reservas = () => {
             return (
               <li
                 key={r.id}
-                className="rounded-lg border border-slate-700 bg-slate-800 p-4"
+                className="rounded-lg border border-borda bg-superficie p-4"
               >
                 <div className="flex items-start justify-between gap-3">
                   <div>
-                    <h3 className="font-bold text-slate-100">{r.titulo}</h3>
-                    <p className="text-sm text-slate-400">
+                    <h3 className="font-bold text-texto">{r.titulo}</h3>
+                    <p className="text-sm text-texto-mudo">
                       {r.nome} ({r.matricula}) · {r.curso}
                     </p>
                   </div>
                   <span
                     className={`shrink-0 rounded-full px-3 py-1 text-xs ${
                       vencida
-                        ? "bg-red-500/20 text-red-300"
+                        ? "bg-red-500/20 text-red-700 dark:text-red-300"
                         : aguardando
                           ? "bg-inatel text-white"
-                          : "bg-slate-700 text-slate-300"
+                          : "bg-superficie-2 text-texto-suave"
                     }`}
                   >
                     {vencida ? "Prazo vencido" : aguardando ? "Aguardando retirada" : "Retirado"}
                   </span>
                 </div>
 
-                <div className="mt-3 space-y-1 text-sm text-slate-400">
+                <div className="mt-3 space-y-1 text-sm text-texto-mudo">
                   <p>Reservado em: {formatarData(r.dataReserva)}</p>
                   <p>
                     {aguardando

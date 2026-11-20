@@ -7,8 +7,8 @@ const BookCard = ({ book }) => {
   const disponivel = quantidade > 0;
 
   return (
-    <article className="flex flex-col overflow-hidden rounded-lg border border-slate-700 bg-slate-800">
-      <div className="aspect-3/4 bg-slate-700 flex items-center justify-center">
+    <article className="flex flex-col overflow-hidden rounded-lg border border-borda bg-superficie">
+      <div className="aspect-3/4 bg-superficie-2 flex items-center justify-center">
         {book.capa ? (
           <img
             src={book.capa}
@@ -17,24 +17,24 @@ const BookCard = ({ book }) => {
             className="h-full w-full object-cover"
           />
         ) : (
-          <div className="flex flex-col items-center gap-2 text-slate-400">
+          <div className="flex flex-col items-center gap-2 text-texto-mudo">
             <BookOpenIcon size={32} />
             <span className="text-xs">Sem capa</span>
           </div>
         )}
       </div>
 
-      <div className="flex flex-1 flex-col justify-between gap-3 border-t border-slate-700 p-3">
+      <div className="flex flex-1 flex-col justify-between gap-3 border-t border-borda p-3">
         {disponivel ? (
           <>
             <div>
-              <h2 className="line-clamp-2 text-sm font-bold text-slate-100">
+              <h2 className="line-clamp-2 text-sm font-bold text-texto">
                 {book.titulo}
               </h2>
-              <p className="mt-1 line-clamp-1 text-xs text-slate-400">
+              <p className="mt-1 line-clamp-1 text-xs text-texto-mudo">
                 {book.editora ?? book.autores?.join(", ") ?? "Editora não informada"}
               </p>
-              <p className="mt-1 text-xs font-medium text-slate-300">
+              <p className="mt-1 text-xs font-medium text-texto-suave">
                 {quantidade}{" "}
                 {quantidade === 1 ? "exemplar disponível" : "exemplares disponíveis"}
               </p>
@@ -48,7 +48,7 @@ const BookCard = ({ book }) => {
             </Link>
           </>
         ) : (
-          <p className="py-4 text-center text-sm font-bold text-slate-300">
+          <p className="py-4 text-center text-sm font-bold text-texto-suave">
             Indisponível
           </p>
         )}
