@@ -9,7 +9,12 @@ import {
 } from "../utils/Datas";
 
 const Emprestimos = () => {
-  const { registros, devolverLivro, simularAtraso } = useBiblioteca();
+  const {
+    registros,
+    devolverLivro,
+    simularAtraso,
+    renovarLivro,
+  } = useBiblioteca();
   const emprestimos = registros.filter((r) => r.dataEmprestimo);
 
   return (
@@ -89,6 +94,14 @@ const Emprestimos = () => {
                       className="text-xs text-texto-mudo hover:text-texto hover:underline"
                     >
                       Teste: adiantar prazo em 1 dias
+                    </button>
+
+                    <button
+                      type="button"
+                      onClick={() => renovarLivro(r.id)}
+                      className="ml-auto rounded-lg bg-inatel hover:bg-inatel-claro px-4 py-2 text-sm font-semibold text-white transition-colors"
+                    >
+                      Renovar livro
                     </button>
                   </div>
                 )}

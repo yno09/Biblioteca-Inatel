@@ -1,3 +1,4 @@
+
 import { useEffect, useState } from "react";
 import { BibliotecaContext } from "./BibliotecaContext";
 import {
@@ -48,6 +49,7 @@ export const BibliotecaProvider = ({ children }) => {
       dataReserva: agora,
       prazoRetirada: adicionarDias(agora, PRAZO_RETIRADA_DIAS),
     };
+
     setRegistros((atual) => [reserva, ...atual]);
     return reserva;
   };
@@ -63,7 +65,7 @@ export const BibliotecaProvider = ({ children }) => {
       };
     });
 
-  // Empréstimo -> devolução (calcula a multa no dia da devolução)
+  // Empréstimo -> devolução
   const devolverLivro = (id) =>
     atualizar(id, (r) => {
       const agora = new Date().toISOString();
@@ -74,13 +76,35 @@ export const BibliotecaProvider = ({ children }) => {
       };
     });
 
-  // Só para testar a multa: adianta o prazo de devolução em 3 dias
+  // Simula atraso para testar a multa
   const simularAtraso = (id) =>
-    atualizar(id, (r) => ({ prazoDevolucao: adicionarDias(r.prazoDevolucao, -1) }));
+    atualizar(id, (r) => ({
+      prazoDevolucao: adicionarDias(r.prazoDevolucao, -1),
+    }));
+
+  // Renova o empréstimo por mais 7 dias
+  const renovarLivro = (id) => {
+    atualizar(id, (r) => {
+      if (r.status !== "emprestado") {
+        return {};
+      }
+
+      return {
+        prazoDevolucao: adicionarDias(r.prazoDevolucao, 7),
+      };
+    });
+  };
 
   return (
     <BibliotecaContext.Provider
-      value={{ registros, criarReserva, retirarLivro, devolverLivro, simularAtraso }}
+      value={{
+        registros,
+        criarReserva,
+        retirarLivro,
+        devolverLivro,
+        simularAtraso,
+        renovarLivro,
+      }}
     >
       {children}
     </BibliotecaContext.Provider>
