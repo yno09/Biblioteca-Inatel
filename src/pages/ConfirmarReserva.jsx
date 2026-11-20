@@ -3,7 +3,7 @@ import { Link, useParams } from "react-router-dom";
 import { CheckCircleIcon } from "lucide-react";
 import { fetchBooksById } from "../services/api";
 import { useBiblioteca } from "../context/BibliotecaContext";
-import { formatarData } from "../utils/Datasatas";
+import { formatarData } from "../utils/Datas";
 
 const CURSOS = [
   "Engenharia de Software",
