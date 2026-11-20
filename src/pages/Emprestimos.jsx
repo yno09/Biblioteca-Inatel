@@ -88,7 +88,7 @@ const Emprestimos = () => {
                       onClick={() => simularAtraso(r.id)}
                       className="text-xs text-texto-mudo hover:text-texto hover:underline"
                     >
-                      Teste: adiantar prazo em 3 dias
+                      Teste: adiantar prazo em 1 dias
                     </button>
                   </div>
                 )}

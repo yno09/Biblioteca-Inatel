@@ -14,6 +14,12 @@ const CURSOS = [
   "Engenharia de Produção",
 ];
 
+const DADOS_TESTE = {
+  nome: "Vitor Nolasco Ynoguti",
+  matricula: "818",
+  curso: "Engenharia de Software",
+};
+
 const campo =
   "w-full bg-fundo border border-borda rounded-lg px-4 py-3 text-sm text-texto placeholder:text-texto-mudo focus:outline-none focus:border-inatel-claro";
 
@@ -45,24 +51,34 @@ const ConfirmarReserva = () => {
   };
 
   const handleSubmit = (e) => {
-    e.preventDefault();
+  e.preventDefault();
 
-    if (!form.nome.trim() || !form.matricula.trim() || !form.curso) {
-      setErro("Preencha nome, matrícula e curso para continuar.");
-      return;
-    }
+  if (!form.nome.trim() || !form.matricula.trim() || !form.curso) {
+    setErro("Preencha todos os campos para continuar.");
+    return;
+  }
 
-    setErro("");
-    setReserva(
-      criarReserva({
-        livroId: id,
-        titulo: livro?.titulo ?? id,
-        nome: form.nome.trim(),
-        matricula: form.matricula.trim(),
-        curso: form.curso,
-      })
-    );
-  };
+  if (
+    form.nome.trim() !== DADOS_TESTE.nome ||
+    form.matricula.trim() !== DADOS_TESTE.matricula ||
+    form.curso !== DADOS_TESTE.curso
+  ) {
+    setErro("Dados inválidos!");
+    return;
+  }
+
+  setErro("");
+
+  setReserva(
+    criarReserva({
+      livroId: id,
+      titulo: livro?.titulo ?? id,
+      nome: form.nome.trim(),
+      matricula: form.matricula.trim(),
+      curso: form.curso,
+    })
+  );
+};
 
   if (reserva) {
     return (
@@ -174,6 +190,13 @@ const ConfirmarReserva = () => {
             Confirmar reserva
           </button>
         </form>
+        <p className="mt-1 text-sm text-texto-mudo">
+          NomeTeste: Vitor Nolasco Ynoguti 
+          <br />
+          MatrículaTeste: 818
+          <br />
+          CursoTeste: Engenharia de Software
+        </p>
       </div>
     </main>
   );
