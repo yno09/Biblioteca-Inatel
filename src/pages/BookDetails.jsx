@@ -61,12 +61,12 @@ const BookDetails = () => {
 
       <article className="mt-4 flex flex-col overflow-hidden rounded-lg border border-slate-700 bg-slate-800">
         <div className="flex justify-center bg-slate-900/40 p-4">
-          <div className="flex aspect-[3/4] w-44 items-center justify-center overflow-hidden rounded-md bg-slate-700">
+          <div className="flex aspect-3/4 w-44 items-center justify-center overflow-hidden rounded-md bg-slate-700">
             {livro.capa ? (
               <img
                 src={livro.capa}
                 alt={`Capa do livro ${livro.titulo}`}
-                className="h-full w-full object-cover"
+                className="h-full w-full object-cover"  
               />
             ) : (
               <div className="flex flex-col items-center gap-2 text-slate-400">
