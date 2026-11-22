@@ -2,13 +2,33 @@ import { useEffect, useState } from "react";
 import BookCard from "../components/BookCard";
 import { GENRES, searchBooks, fetchBooksByGenre } from "../services/api";
 
+// invertivel: se os botões A–Z / Z–A podem inverter essa ordenação
 const ORDENACOES = [
-  { id: "padrao", label: "Padrão" },
-  { id: "titulo-az", label: "Título (A–Z)" },
-  { id: "autor-az", label: "Autor (A–Z)" },
-  { id: "editora-az", label: "Editora (A–Z)" },
-  { id: "disponiveis", label: "Disponíveis primeiro" },
-  { id: "mais-exemplares", label: "Mais exemplares disponíveis" },
+  { id: "padrao", label: "Padrão", invertivel: false },
+  {
+    id: "titulo-az",
+    label: "Título (A–Z)",
+    labelInvertido: "Título (Z–A)",
+    invertivel: true,
+  },
+  {
+    id: "autor-az",
+    label: "Autor (A–Z)",
+    labelInvertido: "Autor (Z–A)",
+    invertivel: true,
+  },
+  {
+    id: "editora-az",
+    label: "Editora (A–Z)",
+    labelInvertido: "Editora (Z–A)",
+    invertivel: true,
+  },
+  { id: "disponiveis", label: "Disponíveis primeiro", invertivel: false },
+  {
+    id: "mais-exemplares",
+    label: "Mais exemplares disponíveis",
+    invertivel: false,
+  },
 ];
 
 // Compara textos em português, ignorando acentos e maiúsculas
@@ -43,22 +63,28 @@ const ordenar = (livros, ordem, invertido) => {
       );
       break;
     default:
-      return lista;
+      break; // "padrao": mantém a ordem original
   }
 
+  // Vale para qualquer ordenação: inverte o resultado
   return invertido ? lista.reverse() : lista;
 };
 
 const Home = () => {
   const [texto, setTexto] = useState("");
   const [ordem, setOrdem] = useState("padrao");
-  const [invertido, setInvertido] = useState(false);
+  // null = nenhum botão escolhido | "asc" = botão A–Z | "desc" = botão Z–A
+  const [sentido, setSentido] = useState(null);
   const [filtro, setFiltro] = useState({ genreId: 0, termo: "" });
   const [resultado, setResultado] = useState({
     filtro: null,
     livros: [],
     erro: null,
   });
+
+  // Só inverte nas ordenações que permitem (título, autor e editora)
+  const podeInverter = ORDENACOES.find((o) => o.id === ordem)?.invertivel;
+  const invertido = podeInverter && sentido === "desc";
 
   useEffect(() => {
     let cancelado = false;
@@ -83,9 +109,9 @@ const Home = () => {
   // Enquanto o resultado guardado não for do filtro atual, ainda está carregando
   const carregando = resultado.filtro !== filtro;
 
-  // Texto exibido na caixinha: troca "A–Z" por "Z–A" quando invertido
+  // Texto exibido na caixinha: a opção selecionada muda quando invertido
   const rotulo = (o) =>
-    invertido && o.id === ordem ? o.label.replace("A–Z", "Z–A") : o.label;
+    invertido && o.id === ordem ? o.labelInvertido : o.label;
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -148,10 +174,7 @@ const Home = () => {
         <select
           id="ordenar"
           value={ordem}
-          onChange={(e) => {
-            setOrdem(e.target.value);
-            setInvertido(false);
-          }}
+          onChange={(e) => setOrdem(e.target.value)}
           className="bg-superficie border border-borda rounded-xl px-3 py-2 text-sm text-texto focus:outline-none focus:border-inatel-claro"
         >
           {ORDENACOES.map((o) => (
@@ -162,28 +185,26 @@ const Home = () => {
         </select>
 
         {[
-          { label: "A–Z", inverter: false },
-          { label: "Z–A", inverter: true },
+          { label: "A–Z", valor: "asc" },
+          { label: "Z–A", valor: "desc" },
         ].map((b) => {
-          const ativo = ordem === "titulo-az" && invertido === b.inverter;
+          const ativo = podeInverter && sentido === b.valor;
           return (
             <button
-              key={b.label}
+              key={b.valor}
               type="button"
-              onClick={() => {
-                if (ativo) {
-                  setOrdem("padrao");
-                  setInvertido(false);
-                } else {
-                  setOrdem("titulo-az");
-                  setInvertido(b.inverter);
-                }
-              }}
+              disabled={!podeInverter}
+              title={
+                podeInverter
+                  ? undefined
+                  : "Esta ordenação não pode ser invertida"
+              }
+              onClick={() => setSentido(ativo ? null : b.valor)}
               className={`rounded-full px-4 py-2 text-xs transition-colors ${
                 ativo
                   ? "bg-inatel text-white"
                   : "bg-superficie text-texto-suave hover:bg-superficie-2"
-              }`}
+              } disabled:opacity-40 disabled:cursor-not-allowed disabled:hover:bg-superficie`}
             >
               {b.label}
             </button>
