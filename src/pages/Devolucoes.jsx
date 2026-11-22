@@ -27,10 +27,6 @@ const Devolucoes = () => {
               className="rounded-lg border border-borda bg-superficie p-4"
             >
               <h3 className="font-bold text-texto">{r.titulo}</h3>
-              <p className="text-sm text-texto-mudo">
-                {r.nome} ({r.matricula}) · {r.curso}
-              </p>
-
               <div className="mt-3 space-y-1 text-sm text-texto-mudo">
                 <p>Emprestado em: {formatarData(r.dataEmprestimo)}</p>
                 <p>Prazo de devolução: {formatarData(r.prazoDevolucao)}</p>

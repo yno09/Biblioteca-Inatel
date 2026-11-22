@@ -46,9 +46,6 @@ const Emprestimos = () => {
                 <div className="flex items-start justify-between gap-3">
                   <div>
                     <h3 className="font-bold text-texto">{r.titulo}</h3>
-                    <p className="text-sm text-texto-mudo">
-                      {r.nome} ({r.matricula}) · {r.curso}
-                    </p>
                   </div>
                   <span
                     className={`shrink-0 rounded-full px-3 py-1 text-xs ${
