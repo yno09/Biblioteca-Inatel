@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import { BookOpenIcon } from "lucide-react";
 import { useBiblioteca } from "../context/BibliotecaContext";
 import { formatarData, formatarMoeda } from "../utils/Datas";
 
@@ -24,20 +25,42 @@ const Devolucoes = () => {
           {devolucoes.map((r) => (
             <li
               key={r.id}
-              className="rounded-lg border border-borda bg-superficie p-4"
+              className="flex gap-4 rounded-lg border border-borda bg-superficie p-4"
             >
-              <h3 className="font-bold text-texto">{r.titulo}</h3>
-              <div className="mt-3 space-y-1 text-sm text-texto-mudo">
-                <p>Emprestado em: {formatarData(r.dataEmprestimo)}</p>
-                <p>Prazo de devolução: {formatarData(r.prazoDevolucao)}</p>
-                <p className="font-semibold text-texto">
-                  Devolvido em: {formatarData(r.dataDevolucao)}
-                </p>
-                <p className={r.multa > 0 ? "font-semibold text-red-700 dark:text-red-300" : ""}>
-                  {r.multa > 0
-                    ? `Multa paga: ${formatarMoeda(r.multa)}`
-                    : "Sem multa"}
-                </p>
+              <div className="shrink-0 w-20 sm:w-24 aspect-3/4 overflow-hidden rounded-md border border-borda bg-superficie-2 flex items-center justify-center">
+                {r.capa ? (
+                  <img
+                    src={r.capa}
+                    alt={`Capa do livro ${r.titulo}`}
+                    loading="lazy"
+                    className="h-full w-full object-cover"
+                  />
+                ) : (
+                  <div className="flex flex-col items-center gap-1 text-texto-mudo">
+                    <BookOpenIcon size={24} />
+                    <span className="text-xs">Sem capa</span>
+                  </div>
+                )}
+              </div>
+
+              <div className="min-w-0 flex-1">
+                <h3 className="font-bold text-texto">{r.titulo}</h3>
+                {r.editora && (
+                  <p className="text-sm text-texto-mudo">{r.editora}</p>
+                )}
+
+                <div className="mt-3 space-y-1 text-sm text-texto-mudo">
+                  <p>Emprestado em: {formatarData(r.dataEmprestimo)}</p>
+                  <p>Prazo de devolução: {formatarData(r.prazoDevolucao)}</p>
+                  <p className="font-semibold text-texto">
+                    Devolvido em: {formatarData(r.dataDevolucao)}
+                  </p>
+                  <p className={r.multa > 0 ? "font-semibold text-red-700 dark:text-red-300" : ""}>
+                    {r.multa > 0
+                      ? `Multa paga: ${formatarMoeda(r.multa)}`
+                      : "Sem multa"}
+                  </p>
+                </div>
               </div>
             </li>
           ))}

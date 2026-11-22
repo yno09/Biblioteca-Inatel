@@ -51,34 +51,36 @@ const ConfirmarReserva = () => {
   };
 
   const handleSubmit = (e) => {
-  e.preventDefault();
+    e.preventDefault();
 
-  if (!form.nome.trim() || !form.matricula.trim() || !form.curso) {
-    setErro("Preencha todos os campos para continuar.");
-    return;
-  }
+    if (!form.nome.trim() || !form.matricula.trim() || !form.curso) {
+      setErro("Preencha todos os campos para continuar.");
+      return;
+    }
 
-  if (
-    form.nome.trim() !== DADOS_TESTE.nome ||
-    form.matricula.trim() !== DADOS_TESTE.matricula ||
-    form.curso !== DADOS_TESTE.curso
-  ) {
-    setErro("Dados inválidos!");
-    return;
-  }
+    if (
+      form.nome.trim() !== DADOS_TESTE.nome ||
+      form.matricula.trim() !== DADOS_TESTE.matricula ||
+      form.curso !== DADOS_TESTE.curso
+    ) {
+      setErro("Dados inválidos!");
+      return;
+    }
 
-  setErro("");
+    setErro("");
 
-  setReserva(
-    criarReserva({
-      livroId: id,
-      titulo: livro?.titulo ?? id,
-      nome: form.nome.trim(),
-      matricula: form.matricula.trim(),
-      curso: form.curso,
-    })
-  );
-};
+    setReserva(
+      criarReserva({
+        livroId: id,
+        titulo: livro?.titulo ?? id,
+        capa: livro?.capa,
+        editora: livro?.editora,
+        nome: form.nome.trim(),
+        matricula: form.matricula.trim(),
+        curso: form.curso,
+      })
+    );
+  };
 
   if (reserva) {
     return (
@@ -189,7 +191,7 @@ const ConfirmarReserva = () => {
           </button>
         </form>
         <p className="mt-1 text-sm text-texto-mudo">
-          NomeTeste: Vitor Nolasco Ynoguti 
+          NomeTeste: Vitor Nolasco Ynoguti
           <br />
           MatrículaTeste: 818
           <br />

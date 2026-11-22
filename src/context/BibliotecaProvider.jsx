@@ -10,6 +10,16 @@ import {
 
 const CHAVE = "biblioteca-inatel:registros";
 
+// Retorna a data atual no formato YYYY-MM-DD
+const obterDataHoje = () => {
+  const hoje = new Date();
+  const ano = hoje.getFullYear();
+  const mes = String(hoje.getMonth() + 1).padStart(2, "0");
+  const dia = String(hoje.getDate()).padStart(2, "0");
+
+  return `${ano}-${mes}-${dia}`;
+};
+
 const carregar = () => {
   try {
     const texto = localStorage.getItem(CHAVE);
@@ -27,7 +37,7 @@ export const BibliotecaProvider = ({ children }) => {
     try {
       localStorage.setItem(CHAVE, JSON.stringify(registros));
     } catch {
-      // sem armazenamento disponível: segue só em memória
+      // Sem armazenamento disponível: segue só em memória
     }
   }, [registros]);
 
@@ -36,12 +46,23 @@ export const BibliotecaProvider = ({ children }) => {
       atual.map((r) => (r.id === id ? { ...r, ...mudancas(r) } : r))
     );
 
-  const criarReserva = ({ livroId, titulo, nome, matricula, curso }) => {
+  const criarReserva = ({
+    livroId,
+    titulo,
+    capa,
+    editora,
+    nome,
+    matricula,
+    curso,
+  }) => {
     const agora = new Date().toISOString();
+
     const reserva = {
       id: `${Date.now()}-${Math.random().toString(36).slice(2, 7)}`,
       livroId,
       titulo,
+      capa,
+      editora,
       nome,
       matricula,
       curso,
@@ -51,6 +72,7 @@ export const BibliotecaProvider = ({ children }) => {
     };
 
     setRegistros((atual) => [reserva, ...atual]);
+
     return reserva;
   };
 
@@ -58,10 +80,12 @@ export const BibliotecaProvider = ({ children }) => {
   const retirarLivro = (id) =>
     atualizar(id, () => {
       const agora = new Date().toISOString();
+
       return {
         status: "emprestado",
         dataEmprestimo: agora,
         prazoDevolucao: adicionarDias(agora, PRAZO_DEVOLUCAO_DIAS),
+        dataUltimaRenovacao: null,
       };
     });
 
@@ -69,6 +93,7 @@ export const BibliotecaProvider = ({ children }) => {
   const devolverLivro = (id) =>
     atualizar(id, (r) => {
       const agora = new Date().toISOString();
+
       return {
         status: "devolvido",
         dataDevolucao: agora,
@@ -82,17 +107,30 @@ export const BibliotecaProvider = ({ children }) => {
       prazoDevolucao: adicionarDias(r.prazoDevolucao, -1),
     }));
 
-  // Renova o empréstimo por mais 7 dias
+  // Renova o empréstimo apenas uma vez por dia
   const renovarLivro = (id) => {
-    atualizar(id, (r) => {
-      if (r.status !== "emprestado") {
-        return {};
-      }
+    const hoje = obterDataHoje();
 
-      return {
-        prazoDevolucao: adicionarDias(r.prazoDevolucao, 7),
-      };
-    });
+    setRegistros((atual) =>
+      atual.map((r) => {
+        // Verifica se o registro é um empréstimo ativo
+        if (r.id !== id || r.status !== "emprestado") {
+          return r;
+        }
+
+        // Impede uma segunda renovação no mesmo dia
+        if (r.dataUltimaRenovacao === hoje) {
+          return r;
+        }
+
+        // Registra a renovação e acrescenta 7 dias
+        return {
+          ...r,
+          prazoDevolucao: adicionarDias(r.prazoDevolucao, 7),
+          dataUltimaRenovacao: hoje,
+        };
+      })
+    );
   };
 
   return (
