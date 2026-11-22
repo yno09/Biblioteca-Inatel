@@ -5,11 +5,8 @@ import { GENRES, searchBooks, fetchBooksByGenre } from "../services/api";
 const ORDENACOES = [
   { id: "padrao", label: "Padrão" },
   { id: "titulo-az", label: "Título (A–Z)" },
-  { id: "titulo-za", label: "Título (Z–A)" },
   { id: "autor-az", label: "Autor (A–Z)" },
-  { id: "autor-za", label: "Autor (Z–A)" },
   { id: "editora-az", label: "Editora (A–Z)" },
-  { id: "editora-za", label: "Editora (Z–A)" },
   { id: "disponiveis", label: "Disponíveis primeiro" },
   { id: "mais-exemplares", label: "Mais exemplares disponíveis" },
 ];
@@ -18,42 +15,44 @@ const ORDENACOES = [
 const comparar = (a, b) =>
   (a ?? "").localeCompare(b ?? "", "pt-BR", { sensitivity: "base" });
 
-const ordenar = (livros, ordem) => {
+const ordenar = (livros, ordem, invertido) => {
   const lista = [...livros]; // não altera a lista original
 
   switch (ordem) {
     case "titulo-az":
-      return lista.sort((a, b) => comparar(a.titulo, b.titulo));
-    case "titulo-za":
-      return lista.sort((a, b) => comparar(b.titulo, a.titulo));
+      lista.sort((a, b) => comparar(a.titulo, b.titulo));
+      break;
     case "autor-az":
-      return lista.sort((a, b) => comparar(a.autores?.[0], b.autores?.[0]));
-    case "autor-za":
-      return lista.sort((a, b) => comparar(b.autores?.[0], a.autores?.[0]));
+      lista.sort((a, b) => comparar(a.autores?.[0], b.autores?.[0]));
+      break;
     case "editora-az":
-      return lista.sort((a, b) => comparar(a.editora, b.editora));
-    case "editora-za":
-      return lista.sort((a, b) => comparar(b.editora, a.editora));
+      lista.sort((a, b) => comparar(a.editora, b.editora));
+      break;
     case "disponiveis":
-      return lista.sort(
+      lista.sort(
         (a, b) =>
           Number((b.quantidade ?? 0) > 0) - Number((a.quantidade ?? 0) > 0) ||
           comparar(a.titulo, b.titulo)
       );
+      break;
     case "mais-exemplares":
-      return lista.sort(
+      lista.sort(
         (a, b) =>
           (b.quantidade ?? 0) - (a.quantidade ?? 0) ||
           comparar(a.titulo, b.titulo)
       );
+      break;
     default:
       return lista;
   }
+
+  return invertido ? lista.reverse() : lista;
 };
 
 const Home = () => {
   const [texto, setTexto] = useState("");
   const [ordem, setOrdem] = useState("padrao");
+  const [invertido, setInvertido] = useState(false);
   const [filtro, setFiltro] = useState({ genreId: 0, termo: "" });
   const [resultado, setResultado] = useState({
     filtro: null,
@@ -83,6 +82,10 @@ const Home = () => {
 
   // Enquanto o resultado guardado não for do filtro atual, ainda está carregando
   const carregando = resultado.filtro !== filtro;
+
+  // Texto exibido na caixinha: troca "A–Z" por "Z–A" quando invertido
+  const rotulo = (o) =>
+    invertido && o.id === ordem ? o.label.replace("A–Z", "Z–A") : o.label;
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -145,33 +148,47 @@ const Home = () => {
         <select
           id="ordenar"
           value={ordem}
-          onChange={(e) => setOrdem(e.target.value)}
+          onChange={(e) => {
+            setOrdem(e.target.value);
+            setInvertido(false);
+          }}
           className="bg-superficie border border-borda rounded-xl px-3 py-2 text-sm text-texto focus:outline-none focus:border-inatel-claro"
         >
           {ORDENACOES.map((o) => (
             <option key={o.id} value={o.id}>
-              {o.label}
+              {rotulo(o)}
             </option>
           ))}
         </select>
 
         {[
-          { id: "titulo-az", label: "A–Z" },
-          { id: "titulo-za", label: "Z–A" },
-        ].map((o) => (
-          <button
-            key={o.id}
-            type="button"
-            onClick={() => setOrdem(ordem === o.id ? "padrao" : o.id)}
-            className={`rounded-full px-4 py-2 text-xs transition-colors ${
-              ordem === o.id
-                ? "bg-inatel text-white"
-                : "bg-superficie text-texto-suave hover:bg-superficie-2"
-            }`}
-          >
-            {o.label}
-          </button>
-        ))}
+          { label: "A–Z", inverter: false },
+          { label: "Z–A", inverter: true },
+        ].map((b) => {
+          const ativo = ordem === "titulo-az" && invertido === b.inverter;
+          return (
+            <button
+              key={b.label}
+              type="button"
+              onClick={() => {
+                if (ativo) {
+                  setOrdem("padrao");
+                  setInvertido(false);
+                } else {
+                  setOrdem("titulo-az");
+                  setInvertido(b.inverter);
+                }
+              }}
+              className={`rounded-full px-4 py-2 text-xs transition-colors ${
+                ativo
+                  ? "bg-inatel text-white"
+                  : "bg-superficie text-texto-suave hover:bg-superficie-2"
+              }`}
+            >
+              {b.label}
+            </button>
+          );
+        })}
       </div>
 
       {carregando && (
@@ -179,7 +196,9 @@ const Home = () => {
       )}
 
       {!carregando && resultado.erro && (
-        <p className="text-red-700 dark:text-red-400 text-center py-20">{resultado.erro}</p>
+        <p className="text-red-700 dark:text-red-400 text-center py-20">
+          {resultado.erro}
+        </p>
       )}
 
       {!carregando && !resultado.erro && resultado.livros.length === 0 && (
@@ -190,7 +209,7 @@ const Home = () => {
 
       {!carregando && resultado.livros.length > 0 && (
         <div className="mt-6 grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
-          {ordenar(resultado.livros, ordem).map((livro) => (
+          {ordenar(resultado.livros, ordem, invertido).map((livro) => (
             <BookCard key={livro.id} book={livro} />
           ))}
         </div>
