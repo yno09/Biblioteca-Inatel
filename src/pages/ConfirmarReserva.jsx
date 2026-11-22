@@ -89,9 +89,7 @@ const ConfirmarReserva = () => {
             Reserva confirmada!
           </h2>
           <p className="mt-2 text-sm text-texto-mudo">
-            {livro ? `"${livro.titulo}"` : "O livro"} foi reservado para{" "}
-            <span className="text-texto">{reserva.nome}</span> (
-            {reserva.matricula}), do curso de {reserva.curso}.
+            {livro ? `"${livro.titulo}"` : "O livro"} foi reservado
           </p>
           <p className="mt-2 text-sm text-texto-mudo">
             Retire o livro até {formatarData(reserva.prazoRetirada)}.
