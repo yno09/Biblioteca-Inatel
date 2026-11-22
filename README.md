@@ -2,6 +2,8 @@
 
 Aplicação web para consulta de livros e gerenciamento de reservas, empréstimos e devoluções de uma biblioteca universitária, desenvolvida como projeto da disciplina de Interação Homem-Máquina.
 
+link de vizualisação do projeto: https://yno09.github.io/Biblioteca-Inatel/
+
 ## 📖 Visão geral
 
 O objetivo do projeto é oferecer uma interface simples e clara para que o aluno encontre um livro, reserve e acompanhe todo o ciclo até a devolução.
