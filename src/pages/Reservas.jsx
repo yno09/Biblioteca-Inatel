@@ -7,7 +7,7 @@ const Reservas = () => {
   const { registros, retirarLivro } = useBiblioteca();
 
   return (
-    <main className="mx-auto max-w-7xl px-4 py-6 pb-20 sm:px-6 lg:px-8">
+    <main className="mx-auto max-w-3xl px-4 py-6 pb-20 sm:px-6">
       <h2 className="text-xl font-bold text-texto">Histórico de reservas</h2>
       <p className="mt-1 text-sm text-texto-mudo">
         Você tem até 7 dias para retirar o livro reservado.
@@ -21,7 +21,7 @@ const Reservas = () => {
           </Link>
         </div>
       ) : (
-        <ul className="mt-6 grid grid-cols-1 gap-4 lg:grid-cols-2 lg:gap-6">
+        <ul className="mt-6 flex flex-col gap-4">
           {registros.map((r) => {
             const aguardando = r.status === "reservado";
             const vencida = aguardando && diasDeAtraso(r.prazoRetirada) > 0;
@@ -48,7 +48,7 @@ const Reservas = () => {
                 </div>
 
                 <div className="min-w-0 flex-1">
-                  <div className="flex flex-wrap items-start justify-between gap-2 sm:gap-3">
+                  <div className="flex items-start justify-between gap-3">
                     <div className="min-w-0">
                       <h3 className="wrap-break-word font-bold text-texto">{r.titulo}</h3>
                       {r.editora && (

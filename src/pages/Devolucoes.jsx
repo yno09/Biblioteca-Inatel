@@ -10,7 +10,7 @@ const Devolucoes = () => {
     .sort((a, b) => new Date(b.dataDevolucao) - new Date(a.dataDevolucao));
 
   return (
-    <main className="mx-auto max-w-7xl px-4 py-6 pb-20 sm:px-6 lg:px-8">
+    <main className="mx-auto max-w-3xl px-4 py-6 pb-20 sm:px-6">
       <h2 className="text-xl font-bold text-texto">Histórico de devoluções</h2>
 
       {devolucoes.length === 0 ? (
@@ -21,7 +21,7 @@ const Devolucoes = () => {
           </Link>
         </div>
       ) : (
-        <ul className="mt-6 grid grid-cols-1 gap-4 lg:grid-cols-2 lg:gap-6">
+        <ul className="mt-6 flex flex-col gap-4">
           {devolucoes.map((r) => (
             <li
               key={r.id}

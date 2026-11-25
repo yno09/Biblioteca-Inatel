@@ -84,8 +84,8 @@ const ConfirmarReserva = () => {
 
   if (reserva) {
     return (
-      <main className="mx-auto max-w-md px-4 py-6 sm:max-w-xl sm:px-6 sm:py-10">
-        <div className="rounded-xl border border-borda bg-superficie p-5 text-center sm:p-8">
+      <main className="max-w-md mx-auto px-4 py-10">
+        <div className="rounded-xl border border-borda bg-superficie p-6 text-center">
           <CheckCircleIcon size={48} className="mx-auto text-inatel-claro" />
           <h2 className="mt-4 text-xl font-bold text-texto">
             Reserva confirmada!
@@ -116,8 +116,8 @@ const ConfirmarReserva = () => {
   }
 
   return (
-    <main className="mx-auto max-w-md px-4 py-6 sm:max-w-xl sm:px-6 sm:py-10">
-      <div className="rounded-xl border border-borda bg-superficie p-5 sm:p-8">
+    <main className="max-w-md mx-auto px-4 py-10">
+      <div className="rounded-xl border border-borda bg-superficie p-6">
         <h2 className="text-xl font-bold text-texto">Confirmar reserva</h2>
         {livro && (
           <p className="mt-1 text-sm text-texto-mudo">
@@ -125,12 +125,8 @@ const ConfirmarReserva = () => {
           </p>
         )}
 
-        {/* Grid do formulário: 1 coluna no celular; a partir de sm, matrícula (estreita) e curso lado a lado */}
-        <form
-          onSubmit={handleSubmit}
-          className="mt-6 grid gap-4 sm:grid-cols-[10rem_1fr]"
-        >
-          <div className="sm:col-span-2">
+        <form onSubmit={handleSubmit} className="mt-6 flex flex-col gap-4">
+          <div>
             <label htmlFor="nome" className="mb-1 block text-sm text-texto-suave">
               Nome
             </label>
@@ -185,15 +181,11 @@ const ConfirmarReserva = () => {
             </select>
           </div>
 
-          {erro && (
-            <p className="text-sm text-red-700 dark:text-red-400 sm:col-span-2">
-              {erro}
-            </p>
-          )}
+          {erro && <p className="text-sm text-red-700 dark:text-red-400">{erro}</p>}
 
           <button
             type="submit"
-            className="rounded-lg bg-inatel hover:bg-inatel-claro px-5 py-3 text-sm font-semibold text-white transition-colors sm:col-span-2"
+            className="rounded-lg bg-inatel hover:bg-inatel-claro px-5 py-3 text-sm font-semibold text-white transition-colors"
           >
             Confirmar reserva
           </button>
