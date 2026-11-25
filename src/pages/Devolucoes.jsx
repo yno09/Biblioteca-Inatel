@@ -10,7 +10,7 @@ const Devolucoes = () => {
     .sort((a, b) => new Date(b.dataDevolucao) - new Date(a.dataDevolucao));
 
   return (
-    <main className="max-w-3xl mx-auto px-4 py-6 pb-20">
+    <main className="mx-auto max-w-7xl px-4 py-6 pb-20 sm:px-6 lg:px-8">
       <h2 className="text-xl font-bold text-texto">Histórico de devoluções</h2>
 
       {devolucoes.length === 0 ? (
@@ -21,11 +21,11 @@ const Devolucoes = () => {
           </Link>
         </div>
       ) : (
-        <ul className="mt-6 flex flex-col gap-4">
+        <ul className="mt-6 grid grid-cols-1 gap-4 lg:grid-cols-2 lg:gap-6">
           {devolucoes.map((r) => (
             <li
               key={r.id}
-              className="flex gap-4 rounded-lg border border-borda bg-superficie p-4"
+              className="flex gap-3 rounded-lg border border-borda bg-superficie p-3 sm:gap-4 sm:p-4"
             >
               <div className="shrink-0 w-20 sm:w-24 aspect-3/4 overflow-hidden rounded-md border border-borda bg-superficie-2 flex items-center justify-center">
                 {r.capa ? (
@@ -44,7 +44,7 @@ const Devolucoes = () => {
               </div>
 
               <div className="min-w-0 flex-1">
-                <h3 className="font-bold text-texto">{r.titulo}</h3>
+                <h3 className="wrap-break-word font-bold text-texto">{r.titulo}</h3>
                 {r.editora && (
                   <p className="text-sm text-texto-mudo">{r.editora}</p>
                 )}

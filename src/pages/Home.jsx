@@ -125,29 +125,32 @@ const Home = () => {
   };
 
   return (
-    <main className="max-w-6xl mx-auto px-4 py-6 pb-20">
-      <h2 className="text-xl font-bold text-texto">
+    <main className="mx-auto max-w-7xl px-4 py-6 pb-20 sm:px-6 lg:px-8">
+      <h2 className="text-lg font-bold text-texto sm:text-xl">
         Escolha o seu próximo livro
       </h2>
 
-      <form onSubmit={handleSubmit} className="mt-4 flex gap-2">
+      <form
+        onSubmit={handleSubmit}
+        className="mt-4 flex flex-col gap-2 sm:flex-row"
+      >
         <input
           type="text"
           value={texto}
           onChange={(e) => setTexto(e.target.value)}
           placeholder="Buscar por autor, título ou editora..."
-          className="flex-1 bg-superficie border border-borda rounded-xl px-4 py-3 text-sm text-texto placeholder:text-texto-mudo focus:outline-none focus:border-inatel-claro"
+          className="min-w-0 w-full bg-superficie border border-borda rounded-xl px-4 py-3 text-sm text-texto placeholder:text-texto-mudo focus:outline-none focus:border-inatel-claro sm:flex-1"
         />
         <button
           type="submit"
           id="search-button"
-          className="rounded-xl bg-inatel hover:bg-inatel-claro px-5 py-3 text-sm font-semibold text-white transition-colors"
+          className="w-full rounded-xl bg-inatel hover:bg-inatel-claro px-5 py-3 text-sm font-semibold text-white transition-colors sm:w-auto"
         >
           Buscar
         </button>
       </form>
 
-      <div className="mt-4 flex flex-wrap gap-3">
+      <div className="mt-4 flex flex-wrap gap-2 sm:gap-3">
         {GENRES.map((g) => {
           const ativo = !filtro.termo && filtro.genreId === g.id;
           return (
@@ -155,7 +158,7 @@ const Home = () => {
               key={g.id}
               type="button"
               onClick={() => escolherGenero(g.id)}
-              className={`rounded-full px-5 py-2 text-xs transition-colors ${
+              className={`rounded-full px-4 py-2 text-xs transition-colors sm:px-5 ${
                 ativo
                   ? "bg-inatel text-white"
                   : "bg-superficie text-texto-suave hover:bg-superficie-2"
@@ -175,7 +178,7 @@ const Home = () => {
           id="ordenar"
           value={ordem}
           onChange={(e) => setOrdem(e.target.value)}
-          className="bg-superficie border border-borda rounded-xl px-3 py-2 text-sm text-texto focus:outline-none focus:border-inatel-claro"
+          className="min-w-0 max-w-full flex-1 bg-superficie border border-borda rounded-xl px-3 py-2 text-sm text-texto focus:outline-none focus:border-inatel-claro sm:flex-none"
         >
           {ORDENACOES.map((o) => (
             <option key={o.id} value={o.id}>
@@ -229,7 +232,7 @@ const Home = () => {
       )}
 
       {!carregando && resultado.livros.length > 0 && (
-        <div className="mt-6 grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
+        <div className="mt-6 grid grid-cols-2 gap-3 sm:grid-cols-3 sm:gap-4 md:grid-cols-4 lg:gap-5 xl:grid-cols-5">
           {ordenar(resultado.livros, ordem, invertido).map((livro) => (
             <BookCard key={livro.id} book={livro} />
           ))}

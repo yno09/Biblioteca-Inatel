@@ -7,7 +7,7 @@ const BookCard = ({ book }) => {
   const disponivel = quantidade > 0;
 
   return (
-    <article className="flex flex-col overflow-hidden rounded-lg border border-borda bg-superficie">
+    <article className="flex h-full min-w-0 flex-col overflow-hidden rounded-lg border border-borda bg-superficie">
       <div className="aspect-3/4 bg-superficie-2 flex items-center justify-center">
         {book.capa ? (
           <img
@@ -24,7 +24,7 @@ const BookCard = ({ book }) => {
         )}
       </div>
 
-      <div className="flex flex-1 flex-col justify-between gap-3 border-t border-borda p-3">
+      <div className="flex flex-1 flex-col justify-between gap-3 border-t border-borda p-3 sm:p-4">
         {disponivel ? (
           <>
             <div>

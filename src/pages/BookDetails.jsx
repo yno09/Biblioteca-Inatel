@@ -54,14 +54,19 @@ const BookDetails = () => {
   ].filter(([, valor]) => valor); // esconde o que não tem valor
 
   return (
-    <main className="max-w-md mx-auto px-4 py-6">
+    <main className="mx-auto max-w-md px-4 py-6 sm:px-6 md:max-w-4xl">
       <Link to="/" className="text-sm text-inatel-claro hover:underline">
         ← Voltar ao catálogo
       </Link>
 
-      <article className="mt-4 flex flex-col overflow-hidden rounded-lg border border-borda bg-superficie">
-        <div className="flex justify-center bg-fundo/40 p-4">
-          <div className="flex aspect-3/4 w-44 items-center justify-center overflow-hidden rounded-md bg-superficie-2">
+      {/*
+        Grid da página:
+        - celular: capa, informações e botão empilhados
+        - md+:     capa à esquerda (ocupando as 2 linhas), informações e botão à direita
+      */}
+      <article className="mt-4 grid overflow-hidden rounded-lg border border-borda bg-superficie md:grid-cols-[16rem_1fr] md:grid-rows-[1fr_auto]">
+        <div className="flex items-center justify-center bg-fundo/40 p-4 md:row-span-2 md:border-r md:border-borda md:p-6">
+          <div className="flex aspect-3/4 w-44 items-center justify-center overflow-hidden rounded-md bg-superficie-2 md:w-full">
             {livro.capa ? (
               <img
                 src={livro.capa}
@@ -77,10 +82,12 @@ const BookDetails = () => {
           </div>
         </div>
 
-        <div className="border-t border-borda p-4">
-          <h2 className="text-lg font-bold text-texto">{livro.titulo}</h2>
+        <div className="min-w-0 border-t border-borda p-4 md:border-t-0 md:p-6">
+          <h2 className="wrap-break-word text-lg font-bold text-texto md:text-2xl">
+            {livro.titulo}
+          </h2>
 
-          <div className="mt-2 space-y-1 text-sm text-texto-mudo">
+          <div className="mt-2 space-y-1 text-sm text-texto-mudo md:mt-4 md:space-y-2 md:text-base">
             {dados.map(([rotulo, valor]) => (
               <p key={rotulo}>
                 <span className="font-semibold text-texto-suave">{rotulo}:</span>{" "}
@@ -92,7 +99,7 @@ const BookDetails = () => {
 
         <Link
           to={`/reservar/${id}`}
-          className="border-t border-borda p-3 text-center text-sm font-medium text-inatel-claro hover:underline"
+          className="border-t border-borda p-3 text-center text-sm font-medium text-inatel-claro hover:underline md:p-4"
         >
           Solicitar Reserva
         </Link>

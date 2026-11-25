@@ -7,7 +7,7 @@ const Reservas = () => {
   const { registros, retirarLivro } = useBiblioteca();
 
   return (
-    <main className="max-w-3xl mx-auto px-4 py-6 pb-20">
+    <main className="mx-auto max-w-7xl px-4 py-6 pb-20 sm:px-6 lg:px-8">
       <h2 className="text-xl font-bold text-texto">Histórico de reservas</h2>
       <p className="mt-1 text-sm text-texto-mudo">
         Você tem até 7 dias para retirar o livro reservado.
@@ -21,7 +21,7 @@ const Reservas = () => {
           </Link>
         </div>
       ) : (
-        <ul className="mt-6 flex flex-col gap-4">
+        <ul className="mt-6 grid grid-cols-1 gap-4 lg:grid-cols-2 lg:gap-6">
           {registros.map((r) => {
             const aguardando = r.status === "reservado";
             const vencida = aguardando && diasDeAtraso(r.prazoRetirada) > 0;
@@ -29,7 +29,7 @@ const Reservas = () => {
             return (
               <li
                 key={r.id}
-                className="flex gap-4 rounded-lg border border-borda bg-superficie p-4"
+                className="flex gap-3 rounded-lg border border-borda bg-superficie p-3 sm:gap-4 sm:p-4"
               >
                 <div className="shrink-0 w-20 sm:w-24 aspect-3/4 overflow-hidden rounded-md border border-borda bg-superficie-2 flex items-center justify-center">
                   {r.capa ? (
@@ -48,9 +48,9 @@ const Reservas = () => {
                 </div>
 
                 <div className="min-w-0 flex-1">
-                  <div className="flex items-start justify-between gap-3">
-                    <div>
-                      <h3 className="font-bold text-texto">{r.titulo}</h3>
+                  <div className="flex flex-wrap items-start justify-between gap-2 sm:gap-3">
+                    <div className="min-w-0">
+                      <h3 className="wrap-break-word font-bold text-texto">{r.titulo}</h3>
                       {r.editora && (
                         <p className="text-sm text-texto-mudo">{r.editora}</p>
                       )}
@@ -81,7 +81,7 @@ const Reservas = () => {
                     <button
                       type="button"
                       onClick={() => retirarLivro(r.id)}
-                      className="mt-4 rounded-lg bg-inatel hover:bg-inatel-claro px-4 py-2 text-sm font-semibold text-white transition-colors"
+                      className="mt-4 w-full rounded-lg bg-inatel hover:bg-inatel-claro px-4 py-2 text-sm font-semibold text-white transition-colors sm:w-auto"
                     >
                       Simular retirada
                     </button>
