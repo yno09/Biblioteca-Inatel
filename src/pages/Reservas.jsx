@@ -1,10 +1,13 @@
-﻿import { Link } from "react-router-dom";
+﻿import { useState } from "react";
+import { Link } from "react-router-dom";
 import { BookOpenIcon } from "lucide-react";
 import { useBiblioteca } from "../context/BibliotecaContext";
 import { diasDeAtraso, formatarData } from "../utils/Datas";
 
 const Reservas = () => {
-  const { registros, retirarLivro } = useBiblioteca();
+  const { registros, retirarLivro, cancelarReserva } = useBiblioteca();
+  // id da reserva que está mostrando o aviso "Deseja cancelar reserva?"
+  const [confirmandoId, setConfirmandoId] = useState(null);
 
   return (
     <main className="mx-auto max-w-3xl px-4 py-6 pb-20 sm:px-6">
@@ -77,14 +80,54 @@ const Reservas = () => {
                     </p>
                   </div>
 
-                  {aguardando && (
-                    <button
-                      type="button"
-                      onClick={() => retirarLivro(r.id)}
-                      className="mt-4 w-full rounded-lg bg-inatel hover:bg-inatel-claro px-4 py-2 text-sm font-semibold text-white transition-colors sm:w-auto"
+                  {aguardando && confirmandoId !== r.id && (
+                    <div className="mt-4 flex flex-col gap-2 sm:flex-row">
+                      <button
+                        type="button"
+                        onClick={() => retirarLivro(r.id)}
+                        className="w-full rounded-lg bg-inatel hover:bg-inatel-claro px-4 py-2 text-sm font-semibold text-white transition-colors sm:w-auto"
+                      >
+                        Simular retirada
+                      </button>
+                      <button
+                        type="button"
+                        onClick={() => setConfirmandoId(r.id)}
+                        className="w-full rounded-lg bg-red-600 hover:bg-red-700 px-4 py-2 text-sm font-semibold text-white transition-colors sm:w-auto"
+                      >
+                        Cancelar reserva
+                      </button>
+                    </div>
+                  )}
+
+                  {aguardando && confirmandoId === r.id && (
+                    <div
+                      role="alertdialog"
+                      aria-label="Confirmar cancelamento"
+                      className="mt-4 rounded-lg border border-red-500/40 bg-red-500/10 p-3"
                     >
-                      Simular retirada
-                    </button>
+                      <p className="text-sm font-semibold text-texto">
+                        Deseja cancelar reserva?
+                      </p>
+                      <div className="mt-3 flex gap-2">
+                        <button
+                          type="button"
+                          onClick={() => {
+                            cancelarReserva(r.id);
+                            setConfirmandoId(null);
+                          }}
+                          className="rounded-lg bg-red-600 hover:bg-red-700 px-4 py-2 text-sm font-semibold text-white transition-colors"
+                        >
+                          Sim, cancelar
+                        </button>
+                        <button
+                          type="button"
+                          onClick={() => setConfirmandoId(null)}
+                          className="rounded-lg bg-superficie-2 hover:bg-superficie-3 px-4 py-2 text-sm font-semibold text-texto transition-colors"
+                        >
+                          Não
+                        </button>
+                      </div>
+                    </div>
                   )}
                 </div>
               </li>

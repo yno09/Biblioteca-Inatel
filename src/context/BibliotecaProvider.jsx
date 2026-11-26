@@ -76,6 +76,12 @@ export const BibliotecaProvider = ({ children }) => {
     return reserva;
   };
 
+  // Cancela a reserva (só vale enquanto ainda aguarda retirada)
+  const cancelarReserva = (id) =>
+    setRegistros((atual) =>
+      atual.filter((r) => !(r.id === id && r.status === "reservado"))
+    );
+
   // Reserva -> empréstimo
   const retirarLivro = (id) =>
     atualizar(id, () => {
@@ -138,6 +144,7 @@ export const BibliotecaProvider = ({ children }) => {
       value={{
         registros,
         criarReserva,
+        cancelarReserva,
         retirarLivro,
         devolverLivro,
         simularAtraso,
